@@ -1,2 +1,2 @@
-# paymentsAPI
-for the payments API setup
+# Corteiz Checkout Bot
+
