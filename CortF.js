@@ -24,13 +24,14 @@ export class x_cc {
         this.cortSearch = '#shopify-section-header > div.site-wrapper > div > div.grid__item.text-right > div > form > input';
         this.searchButton = '#shopify-section-header > div.site-wrapper > div > div.grid__item.text-right > div > form > button';
         this.searchedProducts = '#MainContent > div > div';
+        this.checkPage = '#AddToCart';
         this.cardName = '#cc-name';
         this.cardType = '#cc-type';
         this.cardNumber = '#cc-number';
         this.cardSecurity = '#cc-csc';
     }
 
-    async findProducts(product_name){
+    async findProducts(product_name) {
         await this.page.type(this.cortSearch, product_name);
         console.log(`searched: ${product_name}`);
         await this.page.click(this.searchButton);
@@ -53,14 +54,52 @@ export class x_cc {
                         };
                     }
                 });
-    
+
                 return result;
             }
         );
-    
+
         console.log(products); // For debugging
         return products;
-    }    
+    }
+
+    async goToCheckout(data) {
+        if (!data || data.length === 0) {
+            console.log('No options available to iterate.');
+            return;
+        }
+
+        let highestScore = 0;
+        let bestMatchValue = null;
+
+        for (const option of Object.keys(data)) {
+            const similarity = stringSimilarity.compareTwoStrings(this.targetName.toLowerCase(), option.toLowerCase());
+            console.log(`Comparing "${this.targetName}" vs "${option}" = ${similarity}`);
+
+            if (similarity > highestScore) {
+                highestScore = similarity;
+                bestMatchValue = data[option];
+            }
+        }
+
+        if (highestScore > 0.6) {
+            console.log(`✅ Best match: ${bestMatchValue}`);
+            console.log(bestMatchValue, bestMatchValue['selector']);
+            await this.page.click(bestMatchValue['selector']);
+        } else {
+            console.warn(`⚠️ No close match found for "${this.targetName}"`);
+            try {
+                console.log(bestMatchValue, bestMatchValue['selector']);
+                await this.page.click(bestMatchValue['selector']);
+            } catch (error) {
+            }
+                
+        }
+        await this.page.waitForNavigation({ waitUntil: 'networkidle0' });
+        await this.page.click(this.checkPage);
+        await this.page.click('#ProductSection > button.btn.btn--view-cart');
+    }
+
 
     async fill() {
         // await this.page.waitForSelector(cardName);

@@ -69,6 +69,7 @@ await page2.goto( simple_card_site,
 
 const site1 = new x_cc(page2, 'loto dnim jackets','Yaw','Danquah','Visa','1234567812345678','123','12','25','B2515 LIberian Rd, Accra, Ghana','000000');
 await site1.findProducts('lotto');
-await site1.getProducts();
+const results = await site1.getProducts();
+await site1.goToCheckout(results);
 // await site1.fill();
 // await browser.close();
