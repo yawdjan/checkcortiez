@@ -1,0 +1,24 @@
+{
+  "name": "checkcortiez",
+  "version": "1.0.0",
+  "description": "checkout bot for cortiez",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yawdjan/checkcortiez.git"
+  },
+  "type": "module",
+  "author": "mecury (yawdjandanquah@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yawdjan/checkcortiez/issues"
+  },
+  "homepage": "https://github.com/yawdjan/checkcortiez#readme",
+  "dependencies": {
+    "puppeteer-core": "^24.5.0",
+    "string-similarity": "^4.0.4"
+  }
+}
