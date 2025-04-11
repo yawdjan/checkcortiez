@@ -1,2 +1,0 @@
-# Corteiz Checkout Bot
-
