@@ -19,6 +19,8 @@
   "homepage": "https://github.com/yawdjan/checkcortiez#readme",
   "dependencies": {
     "puppeteer-core": "^24.5.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
     "string-similarity": "^4.0.4"
   }
 }
