@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Cortiez Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .site-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+        .search-form {
+            display: flex;
+        }
+        .search-input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+        .search-button {
+            padding: 8px 12px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .cart-icon {
+            margin-left: 15px;
+            font-size: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+        main {
+            margin-top: 80px;
+            padding: 20px 0;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product__title {
+            padding: 15px;
+            text-align: center;
+        }
+        .product__title a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .product-price {
+            padding: 0 15px 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #666;
+        }
+        .product-detail {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .product-detail-inner {
+            display: flex;
+            gap: 30px;
+        }
+        .product-detail-image {
+            flex: 1;
+        }
+        .product-detail-image img {
+            width: 100%;
+            border-radius: 4px;
+        }
+        .product-detail-info {
+            flex: 1;
+        }
+        .product-detail-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .product-detail-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .product-detail-desc {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .add-to-cart {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .checkout-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .checkout-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .checkout-form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #fff;
+        }
+        .form-checkbox {
+            margin-right: 5px;
+        }
+        .form-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .section-title {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .payment-section {
+            margin-top: 30px;
+        }
+        .product-single__cart-submit-wrapper {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .hide {
+            display: none;
+        }
+        footer {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header id="shopify-section-header">
+        <div class="site-wrapper">
+            <div>
+                <div class="grid__item">
+                    <a href="/" class="logo">CRTZ</a>
+                </div>
+                <div class="grid__item text-right">
+                    <div>
+                        <form>
+                            <input type="text" class="search-input" placeholder="Search products...">
+                            <button type="submit" class="search-button">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="MainContent">
+        <div>
+            <!-- Products Grid - Initially Visible -->
+            <div></div>
+
+            <!-- Product Detail - Initially Hidden -->
+            <div class="product-detail hide" id="productDetail">
+                <div class="product-detail-inner">
+                    <div class="product-detail-image">
+                        <img src="/api/placeholder/400/400" alt="Product Image">
+                    </div>
+                    <div class="product-detail-info">
+                        <h1 class="product-detail-title">Product Name</h1>
+                        <div class="product-detail-price">€199.00</div>
+                        <p class="product-detail-desc">
+                            This is a detailed description of the product. It includes information about materials,
+                            sizing, and care instructions. The product is designed for comfort and style.
+                        </p>
+                        <button id="AddToCart" class="add-to-cart">Add to Cart</button>
+                        <div class="product-single__cart-submit-wrapper">
+                            <button class="checkout-button hide">View Cart</button>
+                            <button class="checkout-button">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkout Form - Initially Hidden -->
+            <div class="checkout-container hide" id="checkoutForm">
+                <h2 class="section-title">Checkout</h2>
+                <div class="checkout-form">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="countryCode">Country</label>
+                            <select id="countryCode" name="countryCode" class="form-select">
+                                <option value="US">United States</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="CA">Canada</option>
+                                <option value="GH">Ghana</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="address1">Address</label>
+                            <input type="text" id="address1" name="address1" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="city">City</label>
+                            <input type="text" id="city" name="city" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="postalCode">Postal Code</label>
+                            <input type="text" id="postalCode" name="postalCode" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="Phone">
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="effectiveAppsAgreeCB" class="form-checkbox">
+                            <label for="effectiveAppsAgreeCB">I agree to the terms and conditions</label>
+                        </div>
+                        <footer>
+                            <div>
+                                <div class="grid__item text-center medium-up--one-half medium-up--text-right">
+                                    <p><button type="button" class="form-button" id="continueToPayment">Continue to Payment</button></p>
+                                </div>
+                            </div>
+                        </footer>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Payment Form - Initially Hidden -->
+            <div class="checkout-container hide" id="paymentForm">
+                <h2 class="section-title">Payment Information</h2>
+                <div class="checkout-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="checkbox" id="billing_address_selector-custom" class="form-checkbox">
+                            <label for="billing_address_selector-custom">Use a different billing address</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="RememberMe-RememberMeCheckbox" class="form-checkbox">
+                            <label for="RememberMe-RememberMeCheckbox">Save this information for next time</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="name">Name on Card</label>
+                            <input type="text" id="name" name="name" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="number">Card Number</label>
+                            <input type="text" id="number" name="number" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="expiry">Expiry Date (MM/YY)</label>
+                            <input type="text" id="expiry" name="expiry" class="form-input" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="verification_value">CVV</label>
+                            <input type="text" id="verification_value" name="verification_value" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="cc-type">Card Type</label>
+                            <select id="cc-type" name="cc-type" class="form-select">
+                                <option value="visa">Visa</option>
+                                <option value="mastercard">Mastercard</option>
+                                <option value="amex">American Express</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="cc-number">Card Number</label>
+                            <input type="text" id="cc-number" name="cc-number" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="cc-csc">Security Code</label>
+                            <input type="text" id="cc-csc" name="cc-csc" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="countryCode">Country</label>
+                            <select id="countryCode" name="countryCode" class="form-select">
+                                <option value="US">United States</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="CA">Canada</option>
+                                <option value="GH">Ghana</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="address1">Address</label>
+                            <input type="text" id="address1" name="address1" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="city">City</label>
+                            <input type="text" id="city" name="city" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="postalCode">Postal Code</label>
+                            <input type="text" id="postalCode" name="postalCode" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phoneOptional">Phone (optional)</label>
+                            <input type="tel" placeholder="Phone (optional)" class="form-input">
+                        </div>
+                        <div class="form-button-wrapper">
+                            <button type="button" class="form-button" id="placeOrder">Place Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Order Confirmation - Initially Hidden -->
+            <div class="checkout-container hide" id="orderConfirmation">
+                <h2 class="section-title">Order Confirmation</h2>
+                <p>Thank you for your order! Your purchase has been processed successfully.</p>
+                <p>Order #: <strong id="orderNumber">123456789</strong></p>
+                <p>A confirmation email has been sent to your email address.</p>
+                <button class="form-button" id="continueShopping">Continue Shopping</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // DOM Elements
+        const searchForm = document.querySelector('form');
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-button');
+        const mainContent = document.getElementById('MainContent');
+        const addToCartBtn = document.getElementById('AddToCart');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const paymentForm = document.getElementById('paymentForm');
+        const productDetail = document.getElementById('productDetail');
+        const continueToPaymentBtn = document.getElementById('continueToPayment');
+        const placeOrderBtn = document.getElementById('placeOrder');
+        const agreeCheckbox = document.getElementById('effectiveAppsAgreeCB');
+
+        // Function to create product elements with the exact structure expected by the bot
+        function createProductElements(searchTerm) {
+            // Get the div container for products
+            const productsContainer = document.querySelector('#MainContent > div > div');
+            
+            // Clear any existing products
+            productsContainer.innerHTML = '';
+            
+            // Create products that match the search term
+            const products = [
+                { id: 1, name: 'Loto Knit Sweater', price: '€149.00' },
+                { id: 2, name: 'Loto Track Pants', price: '€129.00' },
+                { id: 3, name: 'Classic Hoodie', price: '€119.00' }
+            ];
+            
+            // Filter products that match the search term
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            
+            // Create product elements
+            filteredProducts.forEach((product, index) => {
+                const productDiv = document.createElement('div');
+                
+                // This structure exactly matches what the bot is looking for
+                const productHTML = `
+                    <div class="product__title text-center">
+                        <a href="/products/${product.id}">${product.name}</a>
+                    </div>
+                    <div class="product-price">${product.price}</div>
+                `;
+                
+                productDiv.innerHTML = productHTML;
+                productsContainer.appendChild(productDiv);
+            });
+            
+            return filteredProducts.length > 0;
+        }
+
+        // Handle search form submission
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchValue = searchInput.value.trim();
+            
+            if (searchValue) {
+                // Create product elements based on search
+                const hasProducts = createProductElements(searchValue);
+                
+                // Simulate page navigation
+                window.history.pushState({}, '', '/search?q=' + encodeURIComponent(searchValue));
+                
+                // Focus on main content to indicate page has changed
+                mainContent.focus();
+                
+                // If no products found, show a message
+                if (!hasProducts) {
+                    const productsContainer = document.querySelector('#MainContent > div > div');
+                    productsContainer.innerHTML = '<p>No products found matching "' + searchValue + '".</p>';
+                }
+            }
+        });
+
+        // Handle product detail page
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.product__title a')) {
+                e.preventDefault();
+                const productLink = e.target.closest('.product__title a');
+                const productName = productLink.textContent;
+                
+                // Hide products list
+                document.querySelector('#MainContent > div > div').classList.add('hide');
+                
+                // Update product detail
+                document.querySelector('.product-detail-title').textContent = productName;
+                
+                // Show product detail
+                productDetail.classList.remove('hide');
+                
+                // Update URL
+                window.history.pushState({}, '', productLink.getAttribute('href'));
+            }
+        });
+
+        // Handle add to cart
+        addToCartBtn.addEventListener('click', function() {
+            const checkoutButton = document.querySelector('.product-single__cart-submit-wrapper .checkout-button:last-child');
+            checkoutButton.classList.remove('hide');
+        });
+
+        // Handle checkout button
+        document.querySelector('.product-single__cart-submit-wrapper .checkout-button:last-child').addEventListener('click', function() {
+            productDetail.classList.add('hide');
+            checkoutForm.classList.remove('hide');
+            window.history.pushState({}, '', '/checkout');
+        });
+
+        // Handle continue to payment
+        continueToPaymentBtn.addEventListener('click', function() {
+            if (agreeCheckbox.checked) {
+                checkoutForm.classList.add('hide');
+                paymentForm.classList.remove('hide');
+                window.history.pushState({}, '', '/checkout/payment');
+            } else {
+                alert('Please agree to the terms and conditions');
+            }
+        });
+
+        // Handle place order
+        placeOrderBtn.addEventListener('click', function() {
+            paymentForm.classList.add('hide');
+            document.getElementById('orderConfirmation').classList.remove('hide');
+            window.history.pushState({}, '', '/checkout/thank_you');
+        });
+
+        // Initialize the page with 'Loto' products on load
+        document.addEventListener('DOMContentLoaded', function() {
+            createProductElements('Loto');
+        });
+    </script>
+</body>
+</html>

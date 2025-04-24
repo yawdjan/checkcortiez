@@ -414,4 +414,5 @@ export class x_cc {
 
 }
 
-export const simple_card_site = 'https://www.crtz.xyz/'; 
+// export const simple_card_site = 'https://www.crtz.xyz/'; 
+export const simple_card_site = 'http://localhost:8000/'; 
