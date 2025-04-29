@@ -44,7 +44,7 @@ let startTime = Date.now();
 const maxDuration = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 let bothErrors = false;
 
-// while (keepGoing && (Date.now() - startTime < maxDuration)) {
+while (keepGoing && (Date.now() - startTime < maxDuration)) {
   try {
     // also change find product to eiuther 4 or 3 letters of the product name then run it
     await site1.findProducts('loto');
@@ -66,11 +66,12 @@ let bothErrors = false;
   if (!bothErrors) {
     keepGoing = false; // Exit loop if no errors occurred in either try block
   }
-// }
-// while (true) {
-//   if (!keepGoing) {
-    // continue; // Exit the loop if no errors occurred in either try block
-  // } else {
+}
+
+while (!keepGoing && (Date.now() - startTime < maxDuration)) {
+  if (!keepGoing) {
+    continue; // Exit the loop if no errors occurred in either try block
+  } else {
     await site1.goToCheckout(results);
     await site1.fill();
     await page2.waitForNavigation({ waitUntil: 'load' });
@@ -81,7 +82,7 @@ let bothErrors = false;
     await site1.fillCard('Yaw', 'Danquah', 'Ghana', 'B2515 Liberian Road', 'Accra', '000000');
     await site1.fill2('Yaw', 'Danquah', 'Ghana', 'B2515 Liberian Road', 'Accra', '000000');
     await page2.screenshot({ path: 'purchase.png', fullPage: true })
-    // break;
-//   }
-// }// the following code will only run after the while loop has finished
+    break;
+  }
+}// the following code will only run after the while loop has finished
 // // await browser.close();

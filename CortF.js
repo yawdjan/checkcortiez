@@ -42,7 +42,7 @@ export class x_cc {
     }
 
     async findProducts(product_name) {
-        await this.page.type(this.cortSearch, product_name);
+        await this.page.$eval(this.cortSearch, el => el.value = product_name);
         console.log(`searched: ${product_name}`);
         // await this.page.waitForNavigation({ waitUntil: 'networkidle0' });
         await this.page.click(this.searchButton);
@@ -140,7 +140,7 @@ export class x_cc {
         await this.page.waitForSelector(`xpath=${continueButtonXPath}`, { visible: true });
         let answer = await this.getInputType(this.phoneEmail);
         console.log(answer);
-        await this.page.type(this.phoneEmail, this.cc_phoneMail);
+        await this.page.$eval(this.phoneEmail, el => el.value = this.cc_phoneMail);
         //
         // await this.page.waitForSelector(this.country);
         answer = await this.getInputType(this.country);
@@ -159,28 +159,28 @@ export class x_cc {
         console.log(answer, this.cc_address);
         // await this.page.waitForSelector(this.address, { visible: true });
         // await this.page.focus(this.address);
-        await this.page.type(this.address, this.cc_address);
+        await this.page.$eval(this.address, el => el.value = this.cc_address);
         await this.page.keyboard.press('Enter'); // trigger blur / selection
         //
         answer = await this.getInputType(this.city);
         console.log(answer);
-        await this.page.type(this.city, this.cc_city);
+        await this.page.$eval(this.city, el => el.value = this.cc_city);
         //
         answer = await this.getInputType(this.postcode);
         console.log(answer);
-        await this.page.type(this.postcode, this.cc_postcode);
+        await this.page.$eval(this.postcode, el => el.value = this.cc_postcode);
         //
         answer = await this.getInputType(this.phone_no);
         console.log(answer);
-        await this.page.type(this.phone_no, this.cc_phoneMail);
+        await this.page.$eval(this.phone_no, el => el.value = this.cc_phoneMail);
         //
         answer = await this.getInputType(this.cardFirstName);
         console.log(answer);
-        await this.page.type(this.cardFirstName, this.cc_first_name);
+        await this.page.$eval(this.cardFirstName, el => el.value = this.cc_first_name);
         //
         answer = await this.getInputType(this.cardLastName);
         console.log(answer);
-        await this.page.type(this.cardLastName, this.cc_last_name);
+        await this.page.$eval(this.cardLastName, el => el.value = this.cc_last_name);
         //
         // **Use the XPath selector:**
         await this.page.click(`xpath=${continueButtonXPath}`);
@@ -203,15 +203,15 @@ export class x_cc {
         await this.page.keyboard.press('Delete');
         await this.getInputType('#name');
         await this.page.focus('#name');
-        await this.page.type('#name', cardfirstname+' '+cardlastname);
+        await this.page.$eval('#name', el => el.value = (cardfirstname+' '+cardlastname));
 
         await this.getInputType('#number');// or 'Meta'
         await this.page.click('#number');
         // await this.page.keyboard.press('Space');
-        await this.page.type('#number', this.cc_number);
+        await this.page.$eval('#number', el => el.value = this.cc_number);
         await this.getInputType('#verification_value');
         await this.page.click('#verification_value');
-        await this.page.type('#verification_value', this.cc_cvv);
+        await this.page.$eval('#verification_value', el => el.value = this.cc_cvv);
     }
 
     async fill2(cardfirstname, cardlastname, country, address, city, postcode) { // Fill in the card details
@@ -224,7 +224,7 @@ export class x_cc {
 
         await this.getInputType('#expiry');
         await this.page.click('#expiry'); // or 'Meta'
-        await this.page.type('#expiry', this.cc_exp_month+'/'+this.cc_exp_year );
+        await this.page.$eval('#expiry', el => el.value = (this.cc_exp_month+'/'+this.cc_exp_year) );
         //
         // await this.page.waitForSelector(this.address, { visible: true });
         await this.page.click(this.address);
@@ -235,7 +235,7 @@ export class x_cc {
         await this.page.focus(this.address);
         answer = await this.getInputType(this.address);
         console.log(answer, address);
-        await this.page.type(this.address, address);
+        await this.page.$eval(this.address, el => el.value = address);
         await this.page.keyboard.press('Enter'); // trigger blur / selection
         //
         await this.page.click(this.city);
@@ -246,7 +246,7 @@ export class x_cc {
         await this.page.focus(this.city);
         answer = await this.getInputType(this.city);
         console.log(answer);
-        await this.page.type(this.city, city);
+        await this.page.$eval(this.city, el => el.value = city);
         //
         await this.page.click(this.postcode);
         await this.page.keyboard.down('Control'); // or 'Meta' for Cmd
@@ -256,7 +256,7 @@ export class x_cc {
         await this.page.focus(this.postcode);
         answer = await this.getInputType(this.postcode);
         console.log(answer);
-        await this.page.type(this.postcode, postcode);
+        await this.page.$eval(this.postcode, el => el.value = postcode);
         //
         await this.page.click(this.cardFirstName);
         await this.page.keyboard.down('Control'); // or 'Meta' for Cmd
@@ -266,7 +266,7 @@ export class x_cc {
         await this.page.focus(this.cardFirstName);
         answer = await this.getInputType(this.cardFirstName);
         console.log(answer);
-        await this.page.type(this.cardFirstName, cardfirstname);
+        await this.page.$eval(this.cardFirstName, el => el.value = cardfirstname);
         //
         await this.page.click(this.cardLastName);
         await this.page.keyboard.down('Control'); // or 'Meta' for Cmd
@@ -276,7 +276,7 @@ export class x_cc {
         await this.page.focus(this.cardLastName);
         answer = await this.getInputType(this.cardLastName);
         console.log(answer);
-        await this.page.type(this.cardLastName, cardlastname);
+        await this.page.$eval(this.cardLastName, el => el.value = cardlastname);
 
         await this.page.click('input[placeholder="Phone (optional)"]');
         await this.page.keyboard.down('Control'); // or 'Meta' for Cmd
